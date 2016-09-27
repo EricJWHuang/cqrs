@@ -9,7 +9,7 @@ namespace Cqrs.Commands.Abstract
     internal interface ICommandResult
     {
         // This interface is introduced to make a set of ICommandResult<TR> possibile
-        //  See CommandLoop for its usage
+        //  See CommandDispatcher for its usage
         //  This is inspired by http://stackoverflow.com/a/8877622/2462104
 
         /// <summary>

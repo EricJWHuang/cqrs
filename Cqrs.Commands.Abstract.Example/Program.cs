@@ -17,11 +17,11 @@ namespace Cqrs.Commands.Abstract.Example
             var logger = new SystemDiagnosticsLogger();
 
             // Example: process 10 InitialiseCommand one-by-one
-            var commandLoop = new SingleThreadCommandDispatcher(commandExecutorResolver, logger);
+            var commandDispatcher = new SingleThreadCommandDispatcher(commandExecutorResolver, logger);
 
             for (var i = 0; i < 10; i++)
             {
-                commandLoop.Dispatch(new InitialiseCommand("test repo " + i));
+                commandDispatcher.Dispatch(new InitialiseCommand("test repo " + i));
             }
 
             Console.ReadLine();

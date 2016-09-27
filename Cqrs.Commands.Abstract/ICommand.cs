@@ -6,7 +6,7 @@
     public interface ICommand
     {
         // This interface is introduced to make a set of ICommand<TR> possibile
-        //  See CommandLoop for its usage
+        //  See CommandDispatcher for its usage
         //  This is inspired by http://stackoverflow.com/a/8877622/2462104
     }
 

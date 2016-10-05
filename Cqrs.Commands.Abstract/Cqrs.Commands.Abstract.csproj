@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandDispatchers\CommandDispatcher.cs" />
     <Compile Include="CommandDispatchers\ICommandDispatcher.cs" />
-    <Compile Include="CommandDispatchers\SingleThreadCommandDispatcher.cs" />
+    <Compile Include="CommandDispatchers\ISingleThreadedCommandDispatcher.cs" />
+    <Compile Include="CommandDispatchers\SingleThreadedCommandDispatcher.cs" />
     <Compile Include="CommandExecutors\CommandExecutor.cs" />
     <Compile Include="CommandExecutors\CommandExecutorResolver.cs" />
     <Compile Include="CommandExecutors\ICommandExecutor.cs" />

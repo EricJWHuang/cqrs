@@ -8,7 +8,7 @@ using Cqrs.Commands.Abstract.Logging;
 
 namespace Cqrs.Commands.Abstract.CommandDispatchers
 {
-    public class SingleThreadCommandDispatcher : ICommandDispatcher
+    public class SingleThreadedSingleThreadedCommandDispatcher : ISingleThreadedCommandDispatcher
     {
         // inspired by https://ayende.com/blog/167299/async-event-loops-in-c
         // This class uses producer-consumer pattern where
@@ -52,7 +52,7 @@ namespace Cqrs.Commands.Abstract.CommandDispatchers
         private readonly ICommandExecutorResolver _commandExecutorResolver;
         private readonly ILogger _logger;
 
-        public SingleThreadCommandDispatcher(ICommandExecutorResolver commandExecutorResolver,
+        public SingleThreadedSingleThreadedCommandDispatcher(ICommandExecutorResolver commandExecutorResolver,
             ILogger logger)
         {
             _commandExecutorResolver = commandExecutorResolver;
@@ -91,7 +91,7 @@ namespace Cqrs.Commands.Abstract.CommandDispatchers
                         // process command
                         var watch = Stopwatch.StartNew();
 
-                        var result = ProcessCommand(command);
+                        var result = ProcessCommand(command).Result;
                         commandResult.SetResult(result);
 
                         watch.Stop();
@@ -134,13 +134,13 @@ namespace Cqrs.Commands.Abstract.CommandDispatchers
         /// </summary>
         /// <param name="command">command</param>
         /// <returns>command's result</returns>
-        private object ProcessCommand(ICommand command)
+        private async Task<object> ProcessCommand(ICommand command)
         {
             var commandExecutor = _commandExecutorResolver.GetCommandExecutor(command);
             if (commandExecutor == null)
                 throw new CommandExecutorNotFoundException(command);
 
-            return commandExecutor.Execute(command);
+            return await commandExecutor.ExecuteAsync(command);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Cqrs.Commands.Abstract.CommandExecutors
+﻿using System.Threading.Tasks;
+
+namespace Cqrs.Commands.Abstract.CommandExecutors
 {
     /// <summary>
     /// Generic command executor interface.
@@ -23,6 +25,6 @@
         /// </summary>
         /// <param name="command">command</param>
         /// <returns>command result</returns>
-        object Execute(object command);
+        Task<object> ExecuteAsync(object command);
     }
 }

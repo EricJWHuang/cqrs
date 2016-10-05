@@ -16,12 +16,20 @@ namespace Cqrs.Commands.Abstract.Example
             var commandExecutorResolver = new CommandExecutorResolver(new[] {commandExecutor});
             var logger = new SystemDiagnosticsLogger();
 
-            // Example: process 10 InitialiseCommand one-by-one
-            var commandDispatcher = new SingleThreadCommandDispatcher(commandExecutorResolver, logger);
+            // Single Threaded Example: process 10 InitialiseCommand one-by-one
+            //var commandDispatcher = new SingleThreadedSingleThreadedCommandDispatcher(commandExecutorResolver, logger);
 
+            //for (var i = 0; i < 10; i++)
+            //{
+            //    commandDispatcher.Dispatch(new InitialiseCommand("test repo " + i));
+            //}
+
+            // Example
+            ICommandDispatcher commandDispatcher = new CommandDispatcher(commandExecutorResolver, logger);
             for (var i = 0; i < 10; i++)
             {
-                commandDispatcher.Dispatch(new InitialiseCommand("test repo " + i));
+                var repoId = commandDispatcher.DispatchAsync(new InitialiseCommand("test repo " + i)).Result;
+                Console.WriteLine("RepoId: " + repoId);
             }
 
             Console.ReadLine();

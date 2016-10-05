@@ -1,4 +1,6 @@
-﻿namespace Cqrs.Commands.Abstract.CommandExecutors
+﻿using System.Threading.Tasks;
+
+namespace Cqrs.Commands.Abstract.CommandExecutors
 {
     /// <summary>
     /// Command executor abstract class.
@@ -28,7 +30,7 @@
         /// </summary>
         /// <param name="command">command</param>
         /// <returns>command result</returns>
-        public abstract TR Execute(TC command);
+        public abstract Task<TR> ExecuteAsync(TC command);
 
         public bool IsExecutable(object command)
         {
@@ -38,9 +40,9 @@
             return IsExecutable((TC)command);
         }
 
-        public object Execute(object command)
+        public async Task<object> ExecuteAsync(object command)
         {
-            return Execute((TC)command);
+            return await ExecuteAsync((TC)command);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Cqrs.Commands.Abstract.Example
             //    commandDispatcher.Dispatch(new InitialiseCommand("test repo " + i));
             //}
 
-            // Example
+            // Multi Threaded Example
             ICommandDispatcher commandDispatcher = new CommandDispatcher(commandExecutorResolver, logger);
             for (var i = 0; i < 10; i++)
             {
